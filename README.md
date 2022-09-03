@@ -15,14 +15,14 @@ Our goal is to analyse the data collected from a public website consisting of ex
 
 #### This project will show you the following:
 
-1) How to **Gather data** from scratch automatically using Web Scraping from a public website
-2) How to **Pre-process** the data
-3) How to **Visualise and Analyse** your data
-4) How to build a **Recommendation System** 
+1) - [x] How to **Gather data** from scratch automatically using Web Scraping from a public website 
+2) - [x] How to **Pre-process** the data
+3) - [ ] How to **Visualise and Analyse** your data
+4) - [ ] How to build a **Recommendation System** 
           - Extract Triples
           - Build Knowledge Graph using Neo4j graph database and Networkk
           - Querying the graph to get recommendations
- 5) How to Build good **AI models**:
+ 5) - [ ] How to Build good **AI models**:
           - Ml models
           - DL models
           - Language models
