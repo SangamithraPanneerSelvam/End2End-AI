@@ -1,4 +1,5 @@
 import pandas as pd
+import re
 
 class DataProcessing:
 
@@ -31,10 +32,39 @@ class DataProcessing:
     for column in df.columns[11:20]:
       self.df[column]=self.df[column].map(lambda x:x.lstrip('$'))
       self.df[column]=self.df[column].astype(int)
-      self.__save()
+      self.__Extract()
   
-  def __save(self):
-    self.df.to_csv('processed_data.csv')
+  def __Extract(self):
+
+    df_new=pd.DataFrame()
+    
+    for i in range(0,980):
+        extract=re.findall(r'\d+', df['Guest'][i])
+        print(extract)
+        if len(extract)==4:
+        
+          df_new= df_new.append(pd.DataFrame([extract], 
+          columns=["Guest_number","range_start","range_end","Cost_per_person"]))
+          
+        elif len(extract)==3:     
+        
+          df_new= df_new.append(pd.DataFrame([extract], 
+          columns=["Guest_number","range_end","Cost_per_person"]))
+          df_new["range_start"] = '0'
+        else:
+          values=['0','0','0','0']
+          df_new= df_new.append(pd.DataFrame([values], 
+          columns=["Guest_number","range_start","range_end","Cost_per_person"]))
+
+    for column in df_new.columns:
+      df_new[column]=df_new[column].astype(int) 
+
+    result=self.df.reset_index(drop=True).merge(df_new.reset_index(drop=True), left_index=True, right_index=True)
+    self.__save(result)
+  
+  
+  def __save(self,result):
+    result.to_csv('processed_data.csv')
 
 if __name__=="__main__":
   obj=DataProcessing()
